@@ -6092,8 +6092,8 @@ button:focus {
 }
 
 label {
-  font-size: 0.8rem;
-  color: #9e9e9e;
+  font-size: 24px;
+  color: #787878;
 }
 
 /* Text Inputs + Textarea
@@ -6133,7 +6133,7 @@ textarea.materialize-textarea {
   outline: none;
   height: 3rem;
   width: 100%;
-  font-size: 16px;
+  font-size: 24px;
   margin: 0 0 8px 0;
   padding: 0;
   -webkit-box-shadow: none;

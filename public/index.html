@@ -21,9 +21,30 @@
 </nav>
 
 <div class="container">
-    <div class="section">
-
-    </div>
+    <form class="section" action="#" onsubmit="save(this)">
+        <h1 id="title">Status:</h1>
+        <div class="row">
+            <div class="col s12 m2">
+                <label for="nameInput">Name</label>
+            </div>
+            <div class="col s12 m10">
+                <input type="text" id="nameInput" name="name"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m2">
+                <label for="ageInput">Alter</label>
+            </div>
+            <div class="col s12 m10">
+                <input type="number" id="ageInput" name="age"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <input type="submit" value="Los!"/>
+            </div>
+        </div>
+    </form>
     <div class="divider"></div>
     <div class="section">
 
@@ -46,18 +67,23 @@
             </div>
 
             <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-content">
-                        <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i></h4>
-                        <span class="card-title center">Innovation</span>
+                <a href="index.html">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i></h4>
+                            <span class="card-title center">Innovation</span>
 
-                        <p class="light">By utilizing elements and principles of Material Design, we were able to create
-                            a
-                            framework that incorporates components and animations that provide more feedback to users.
-                            Additionally, a single underlying responsive system across all platforms allow for a more
-                            unified user experience.</p>
+                            <p class="light">By utilizing elements and principles of Material Design, we were able to
+                                create
+                                a
+                                framework that incorporates components and animations that provide more feedback to
+                                users.
+                                Additionally, a single underlying responsive system across all platforms allow for a
+                                more
+                                unified user experience.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
 
@@ -106,5 +132,13 @@
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
 
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-app.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.0/firebase-firestore.js"></script>
+
+<script src="js/app.js"></script>
 </body>
 </html>
