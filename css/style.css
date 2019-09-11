@@ -16,3 +16,11 @@
 .icon-size {
     font-size: 60px
 }
+
+a:hover .card{
+    background-color: #fff8e1;
+}
+
+a:active .card{
+    background-color: #fff3e0;
+}
