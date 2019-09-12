@@ -25,6 +25,6 @@ a:active .card{
     background-color: #fff3e0;
 }
 
-label {
-
+.form-element {
+    height: 50px;
 }

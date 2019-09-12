@@ -13,6 +13,7 @@ var db = firebase.firestore();
 const userTom = db.doc("users/Tom");
 
 const titleHeader = document.querySelector("#title");
+const userForm = document.querySelector("#userForm");
 
 function save(form) {
   const name = form.name.value;
