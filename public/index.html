@@ -21,7 +21,7 @@
 </nav>
 
 <div class="container">
-    <form id="userForm" class="section" action="javascript:" onsubmit="save(this)">
+    <form id="userForm" class="section" style="display: none" action="javascript:" onsubmit="save(this)">
         <h1 id="title">Status:</h1>
         <div class="row form-element">
             <div class="col s12 m3 l2">
@@ -45,13 +45,13 @@
             </div>
             <div class="col s6 m3 l2">
                 <label>
-                    <input name="gender" type="radio" checked />
+                    <input name="gender" type="radio" checked/>
                     <span>weiblich</span>
                 </label>
             </div>
             <div class="col s6 m3 l2">
                 <label>
-                    <input name="gender" type="radio" />
+                    <input name="gender" type="radio"/>
                     <span>männlich</span>
                 </label>
             </div>
@@ -62,13 +62,13 @@
             </div>
             <div class="col s6 m3 l2">
                 <label>
-                    <input name="region" type="radio" checked />
+                    <input name="region" type="radio" checked/>
                     <span>urban</span>
                 </label>
             </div>
             <div class="col s6 m3 l2">
                 <label>
-                    <input name="region" type="radio" />
+                    <input name="region" type="radio"/>
                     <span>rural</span>
                 </label>
             </div>
@@ -102,48 +102,54 @@
             </div>
         </div>
     </form>
-    <div class="divider"></div>
-    <div class="section">
+    <div id="simulation" style="display: none">
+        <div class="divider"></div>
+        <div class="section">
 
-        <!--   Icon Section   -->
-        <div class="row">
-            <div class="col s12 m6">
-                <a href="index.html">
-                    <div class="card">
-                        <div class="card-content">
-                            <h4 class="center deep-orange-text"><i class="material-icons icon-size">settings</i></h4>
-                            <span class="card-title center">Produktion</span>
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s12 m6">
+                    <a href="index.html">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="center deep-orange-text"><i class="material-icons icon-size">settings</i>
+                                </h4>
+                                <span class="card-title center">Produktion</span>
 
-                            <p class="light">We did most of the heavy lifting for you to provide a default stylings that
-                                incorporate our custom components. Additionally, we refined animations and transitions
-                                to
-                                provide a smoother experience for developers.</p>
+                                <p class="light">We did most of the heavy lifting for you to provide a default stylings
+                                    that
+                                    incorporate our custom components. Additionally, we refined animations and
+                                    transitions
+                                    to
+                                    provide a smoother experience for developers.</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <div class="col s12 m6">
-                <a href="index.html">
-                    <div class="card">
-                        <div class="card-content">
-                            <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i></h4>
-                            <span class="card-title center">Innovation</span>
+                <div class="col s12 m6">
+                    <a href="index.html">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i>
+                                </h4>
+                                <span class="card-title center">Innovation</span>
 
-                            <p class="light">By utilizing elements and principles of Material Design, we were able to
-                                create
-                                a
-                                framework that incorporates components and animations that provide more feedback to
-                                users.
-                                Additionally, a single underlying responsive system across all platforms allow for a
-                                more
-                                unified user experience.</p>
+                                <p class="light">By utilizing elements and principles of Material Design, we were able
+                                    to
+                                    create
+                                    a
+                                    framework that incorporates components and animations that provide more feedback to
+                                    users.
+                                    Additionally, a single underlying responsive system across all platforms allow for a
+                                    more
+                                    unified user experience.</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
