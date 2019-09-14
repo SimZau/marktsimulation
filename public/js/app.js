@@ -20,61 +20,68 @@ const simulationDiv = document.querySelector("#simulation");
 localStorage.removeItem('username');
 
 let username = localStorage.getItem('username');
-if (!username) {
-    userForm.style.display = "inline";
-} else {
-    simulationDiv.style.display = "inline";
+let userclass = localStorage.getItem('userclass');
+let group;
+
+init();
+
+function init() {
+    if (!username) {
+        userForm.style.display = "inline";
+    } else {
+        simulationDiv.style.display = "inline";
+        subscribeDataLoader();
+    }
 }
 
-function save(form) {
+function setUpUiUserdata(form) {
     userForm.style.display = "none";
     simulationDiv.style.display = "inline";
     username = form.name.value;
+    userclass = form.class.value;
     localStorage.setItem('username', username);
+    localStorage.setItem('userclass', userclass);
+}
 
-    console.log("User to save: " + username);
+function saveData(form) {
     users.doc(username).set({
         name: username,
         age: form.age.value,
+        gender: readRadio(form, "gender"),
+        region: readRadio(form, "region"),
+        class: userclass,
+        group: form.group.value
     }).then(function () {
         console.log("Saved!");
     }).catch(function (error) {
         console.log("Error: ", error);
     });
-
-    simulationDiv.style.display = "inline";
 }
 
-getRealtimeUpdates = function () {
-    if (username) {
-        users.doc(username).onSnapshot(function (tom) {
-            if (tom && tom.exists) {
-                console.log("My name is " + tom.data().name);
-                titleHeader.innerText = "My name is " + tom.data().name;
-            }
-        });
+function save(form) {
+    console.log("User to save: " + username);
+    setUpUiUserdata(form);
+    saveData(form);
+    subscribeDataLoader();
+}
+
+function readRadio(form, radioName) {
+    let radio = form[radioName];
+    for (let i = 0; i < radio.length; i++) {
+        if (radio[i].checked) {
+            return radio[i].value;
+        }
     }
-};
+}
 
-getRealtimeUpdates();
-
-// var user;
-// if (username) {
-//   db.collection("users").where("name", "==", username).get()
-//     .then(function (foundUsers) {
-//       if (foundUsers) {
-//         user = foundUsers;
-//       }
-//     });
-// }
-//
-// db.collection("users").doc("Tom").set({
-//   name: "Tom",
-//   age: 17
-// });
-//
-// db.collection("users").doc("Tom").get().then(function (userTom) {
-//   console.log(userTom.name);
-//   var title = document.getElementById('title');
-//   title.innerText = userTom.name;
-// });
+function subscribeDataLoader() {
+    users.doc(username).onSnapshot(function (user) {
+        if (user && user.exists) {
+            group = user.data().group;
+            console.log("User loaded: " + user.data().name);
+        }
+        users.where("group", "==", group).onSnapshot(function (usersInGroup) {
+           console.log("Users in group: " + usersInGroup.size);
+        });
+    });
+}
