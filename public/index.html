@@ -14,13 +14,14 @@
 <nav class="teal lighten-1" role="navigation">
     <div class="nav-wrapper container">
         <span id="logo-container" class="brand-logo hide-on-small-and-down">Marktsimulation</span>
-        <div class="right">
-            <i class="medium material-icons icon-size">person</i>
-        </div>
+        <ul id="navbarUser" class="right" style="display: none">
+            <li><i class="medium material-icons icon-size">person</i></li>
+            <li><span id="navbarUsername">Username</span></li>
+        </ul>
     </div>
 </nav>
 
-<div class="container">
+<main class="container">
     <form id="userForm" class="section" style="display: none" action="javascript:" onsubmit="save(this)">
         <div class="row form-element">
             <div class="col s12 m3 l2">
@@ -56,7 +57,7 @@
             </div>
         </div>
         <div class="row form-element">
-            <div class="col s12 m2">
+            <div class="col s12 m3 l2">
                 <label>Wohnort</label>
             </div>
             <div class="col s6 m3 l2">
@@ -117,8 +118,10 @@
                                 </h4>
                                 <span class="card-title center">Produktion</span>
 
-                                <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components.
-                                    Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                                <p class="light">We did most of the heavy lifting for you to provide a default stylings
+                                    that incorporate our custom components.
+                                    Additionally, we refined animations and transitions to provide a smoother experience
+                                    for developers.</p>
                             </div>
                         </div>
                     </a>
@@ -148,7 +151,7 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <footer class="page-footer teal lighten-1">
     <div class="container">
@@ -180,9 +183,9 @@
         </div>
     </div>
     <div class="footer-copyright">
-        <!--<div class="container">-->
-        <!--Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>-->
-        <!--</div>-->
+        <div class="container">
+            © 2019 Zaugg, All rights reserved
+        </div>
     </div>
 </footer>
 

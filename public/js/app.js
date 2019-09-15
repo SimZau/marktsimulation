@@ -12,7 +12,8 @@ firebase.initializeApp(config);
 let db = firebase.firestore();
 const users = db.collection("users");
 
-const titleHeader = document.querySelector("#title");
+const navbarUsername = document.querySelector("#navbarUsername");
+const navbarUser = document.querySelector("#navbarUser");
 const userForm = document.querySelector("#userForm");
 const simulationDiv = document.querySelector("#simulation");
 
@@ -29,18 +30,24 @@ function init() {
     if (!username) {
         userForm.style.display = "inline";
     } else {
-        simulationDiv.style.display = "inline";
+        setData();
         subscribeDataLoader();
     }
 }
 
-function setUpUiUserdata(form) {
+function setData() {
     userForm.style.display = "none";
     simulationDiv.style.display = "inline";
+    navbarUsername.innerHTML = username;
+    navbarUser.style.display = "inline";
+}
+
+function setUpUiUserdata(form) {
     username = form.name.value;
     userclass = form.class.value;
     localStorage.setItem('username', username);
     localStorage.setItem('userclass', userclass);
+    setData();
 }
 
 function saveData(form) {
@@ -81,7 +88,7 @@ function subscribeDataLoader() {
             console.log("User loaded: " + user.data().name);
         }
         users.where("group", "==", group).onSnapshot(function (usersInGroup) {
-           console.log("Users in group: " + usersInGroup.size);
+            console.log("Users in group: " + usersInGroup.size);
         });
     });
 }
