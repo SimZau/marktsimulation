@@ -20,19 +20,28 @@ nav {
     font-size: 1.5rem;
 }
 
-.icon-block {
-  padding: 0 15px;
+#userForm {
+    margin-top: 40px;
 }
+
+.icon-block {
+    padding: 0 15px;
+}
+
 .icon-block .material-icons {
-	font-size: inherit;
+    font-size: inherit;
 }
 
 .icon-size {
     font-size: 60px
 }
 
-a:hover .card{
-    background-color: #fff8e1;
+a:hover .card {
+    background-color: #fff8e1 !important;
+}
+
+a:active .card{
+    background-color: #fff3e0 !important;
 }
 
 .card-reveal .content {
@@ -58,6 +67,15 @@ a:hover .card{
 
 .overview-element {
     padding-top: 10px;
+}
+
+#selectAnswerButton {
+    margin-top: 20px;
+}
+
+#footerGroup span {
+    margin-left: 15px;
+    vertical-align: top;
 }
 
 @media only screen and (min-width: 993px) {

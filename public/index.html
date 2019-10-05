@@ -172,51 +172,43 @@
             </div>
             <div class="row">
                 <div class="col s12 m6">
-                    <a>
-                        <div class="card">
+                    <a onclick="chooseInvestition(PRODUKTION_ID)" href="#">
+                        <div id="produktionCard" class="card">
                             <div class="card-content">
                                 <h4 class="center deep-orange-text"><i class="material-icons icon-size">settings</i>
                                 </h4>
                                 <span class="card-title center">Produktion</span>
 
-                                <p class="light">We did most of the heavy lifting for you to provide a default stylings
-                                    that incorporate our custom components.
-                                    Additionally, we refined animations and transitions to provide a smoother experience
-                                    for developers.</p>
+                                <p class="light">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
                             </div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col s12 m6">
-                    <a>
-                        <div class="card">
-                            <div class="card-content activator">
-                                    <h4 class="center amber-text activator"><i class="material-icons icon-size">lightbulb_outline</i>
-                                    </h4>
-                                    <span class="card-title center activator">Innovation</span>
+                    <a onclick="chooseInvestition(INNOVATION_ID)" href="#">
+                        <div id="innovationCard" class="card">
+                            <div class="card-content">
+                                <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i>
+                                </h4>
+                                <span class="card-title center">Innovation</span>
 
-                                    <p class="light activator">By utilizing elements and principles of Material Design, we were able
-                                        to
-                                        create
-                                        a
-                                        framework that incorporates components and animations that provide more feedback to
-                                        users.
-                                        Additionally, a single underlying responsive system across all platforms allow for a
-                                        more
-                                        unified user experience.</p>
-                            </div>
-                            <div class="card-reveal">
-                                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                                <a class="content">
-                                    test
-                                </a>
+                                <p class="light">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                                    nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
+                                    voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd
+                                    gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
                             </div>
                         </div>
                     </a>
                 </div>
-                <div class="col s12">
-                    <a class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Produktion wählen</a>
+                <div id="selectAnswerButton" class="col s12" style="display: none">
+                    <a class="waves-effect waves-light btn right" onclick="lockChosenAnswer()">
+                        <i class="material-icons right">send</i>
+                        <span id="selectAnswerText">Nichts</span> wählen
+                    </a>
                 </div>
             </div>
         </div>
@@ -225,7 +217,12 @@
 
 <footer class="page-footer teal lighten-1">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin: 0">
+            <div id="footerGroup" class="col s12 valign-wrapper" style="display: none">
+                <i class="small material-icons icon-size">people</i>
+                <span id="footerGroupname">Group</span>
+                <span id="footerGroupmembercount">Gruppenmitglieder:</span>
+            </div>
         </div>
     </div>
     <div class="footer-copyright">

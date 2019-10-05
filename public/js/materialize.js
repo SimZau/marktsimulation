@@ -5063,7 +5063,7 @@ $jscomp.polyfill = function (e, r, p, m) {
    * where the user doesn't want a delegated click handler.
    */
   Waves.attach = function (element) {
-    //FUTURE: automatically add waves classes and allow users
+    //FUTURE: automatically add waves classes and allow groups
     // to specify them with an options param? Eg. light/classic/button
     if (element.tagName.toLowerCase() === 'input') {
       Effect.wrapInput([element]);
