@@ -18,7 +18,7 @@ const userForm = document.querySelector("#userForm");
 const simulationDiv = document.querySelector("#simulation");
 
 //todo remove
-localStorage.removeItem('username');
+//localStorage.removeItem('username');
 
 let username = localStorage.getItem('username');
 let userclass = localStorage.getItem('userclass');

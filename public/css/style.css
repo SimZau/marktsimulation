@@ -35,10 +35,54 @@ a:hover .card{
     background-color: #fff8e1;
 }
 
-a:active .card{
-    background-color: #fff3e0;
+.card-reveal .content {
+    background-color: #bdbdbd;
+    width: 100%;
+    height: 100%;
 }
 
 .form-element {
     height: 50px;
+}
+
+.overview label {
+    float: right !important;
+    margin-top: 10px;
+}
+
+.overview span {
+    font-size: 1.5rem;
+    color: #009688;
+    float: right !important;
+}
+
+.overview-element {
+    padding-top: 10px;
+}
+
+@media only screen and (min-width: 993px) {
+    .overview-element {
+        margin: 0 0 !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .overview-element {
+        padding: 10px 10px;
+        margin: 10px 10px !important;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .overview-element {
+        margin-left: 30px !important;
+        margin-right: 30px !important;
+    }
+}
+
+@media only screen and (min-width: 1900px) {
+    .overview-element {
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+    }
 }
