@@ -6,5 +6,9 @@ const store = {
     userAnswers: [],
     investitionStage: 0,
     simulationStarted: 0,
-    chosenAnswer
+    chosenAnswer: undefined
 };
+
+function getGroupId() {
+    return store.userclass + "_" + store.usergroup;
+}

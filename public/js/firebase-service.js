@@ -53,3 +53,28 @@ function initUser(name, age, gender, region) {
         answers: []
     });
 }
+
+function subscribeDataLoader() {
+    fGroups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
+        if (user && user.exists) {
+            console.log("User loaded: " + user.data().name);
+            store.userAnswers = user.data().answers;
+        }
+    });
+    fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
+        if (!store.simulationStarted && store.countUsersInGroup !== users.size) {
+            showUserOverview();
+        }
+        store.countUsersInGroup = users.size;
+        footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
+    });
+    fGroups.doc(getGroupId()).onSnapshot(function (group) {
+        store.investitionStage = group.data().investitionStage;
+        if (!store.simulationStarted && group.data().simulationStarted) {
+            userOverview.style.display = "none";
+            simulationDiv.style.display = "block";
+        }
+        store.simulationStarted = group.data().simulationStarted;
+        console.log("Group loaded: Stage " + store.investitionStage);
+    });
+}
