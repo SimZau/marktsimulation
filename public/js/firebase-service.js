@@ -27,25 +27,25 @@ function saveGroup(group) {
     );
 }
 
-function initGroup(userclass, usergroup) {
+function initGroup() {
     saveGroup({
-        userclass: userclass,
-        usergroup: usergroup,
+        userclass: store.userclass,
+        usergroup: store.usergroup,
         investitionStage: 0,
         simulationStarted: 0
     });
 }
 
-function saveUser(username, user) {
+function saveUser(user) {
     save(
-        fGroups.doc(getGroupId()).collection("users").doc(username),
+        fGroups.doc(getGroupId()).collection("users").doc(store.username),
         user,
         () => console.log("Saved User!")
     );
 }
 
 function initUser(name, age, gender, region) {
-    saveUser(name, {
+    saveUser({
         name: name,
         age: age,
         gender: gender,

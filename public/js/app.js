@@ -1,5 +1,3 @@
-
-
 const navbarUsername = document.querySelector("#navbarUsername");
 const navbarUser = document.querySelector("#navbarUser");
 const footerGroup = document.querySelector("#footerGroup");
@@ -21,20 +19,10 @@ const unselectedColor = "#ffffff";
 //todo remove
 localStorage.removeItem('username');
 
-let username = localStorage.getItem('username');
-let userclass = localStorage.getItem('userclass');
-let usergroup = localStorage.getItem('usergroup');
-let countUsersInGroup = 0;
-let userAnswers = [];
-let investitionStage = 0;
-let simulationStarted = 0;
-
-let chosenAnswer;
-
 init();
 
 function init() {
-    if (!username) {
+    if (!store.username) {
         userForm.style.display = "block";
     } else {
         setData();
@@ -58,10 +46,10 @@ function showUserOverview() {
 
 function setData() {
     userForm.style.display = "none";
-    navbarUsername.innerHTML = username;
+    navbarUsername.innerHTML = store.username;
     navbarUser.style.display = "block";
     footerGroup.style.display = "block";
-    footerGroupname.innerHTML = userclass + ", Gruppe " + usergroup;
+    footerGroupname.innerHTML = store.userclass + ", Gruppe " + store.usergroup;
 }
 
 function startSimulation() {
@@ -77,19 +65,19 @@ function startSimulation() {
 }
 
 function setUpUiUserdata(form) {
-    username = form.name.value;
-    userclass = form.class.value;
-    usergroup = form.group.value;
-    localStorage.setItem('username', username);
-    localStorage.setItem('userclass', userclass);
-    localStorage.setItem('usergroup', usergroup);
+    store.username = form.name.value;
+    store.userclass = form.class.value;
+    store.usergroup = form.group.value;
+    localStorage.setItem('username', store.username);
+    localStorage.setItem('userclass', store.userclass);
+    localStorage.setItem('usergroup', store.usergroup);
     setData();
 }
 
 function saveData(form) {
-    initGroup(userclass, usergroup);
-    saveUser(
-        username,
+    initGroup();
+    initUser(
+        store.username,
         form.age.value,
         readRadio(form, "gender"),
         readRadio(form, "region")
@@ -97,7 +85,7 @@ function saveData(form) {
 }
 
 function save(form) {
-    console.log("User to save: " + username);
+    console.log("User to save: " + store.username);
     setUpUiUserdata(form);
     saveData(form);
     subscribeDataLoader();
@@ -117,7 +105,7 @@ function getGroupId() {
 }
 
 function subscribeDataLoader() {
-    groups.doc(getGroupId()).collection("users").doc(username).onSnapshot(function (user) {
+    groups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
         if (user && user.exists) {
             console.log("User loaded: " + user.data().name);
             userAnswers = user.data().answers;
@@ -160,11 +148,11 @@ function chooseInvestition(investition) {
 
 function lockChosenAnswer() {
     userAnswers[investitionStage] = chosenAnswer;
-    groups.doc(username).update({
+    groups.doc(store.username).update({
         answers: userAnswers,
         investitionStage: (investitionStage + 1)
     }).then(function () {
-        console.log(username + ": Saved Answer: " + chosenAnswer);
+        console.log(store.username + ": Saved Answer: " + chosenAnswer);
     }).catch(function (error) {
         console.log("Error: ", error);
     });
