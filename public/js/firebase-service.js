@@ -66,6 +66,7 @@ function subscribeDataLoader() {
             showUserOverview();
         }
         store.countUsersInGroup = users.size;
+        store.usernamesInGroup = users.map(user => user.name);
         footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
     });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {

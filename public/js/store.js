@@ -3,6 +3,7 @@ const store = {
     userclass: localStorage.getItem('userclass'),
     usergroup: localStorage.getItem('usergroup'),
     countUsersInGroup: 0,
+    usernamesInGroup: [],
     userAnswers: [],
     investitionStage: 0,
     simulationStarted: 0,

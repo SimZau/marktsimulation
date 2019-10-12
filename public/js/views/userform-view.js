@@ -1,4 +1,4 @@
-let userformView =
+const userformView =
     `<form id="userForm" class="section" action="javascript:" onsubmit="save(this)">
         <div class="row form-element">
             <div class="col s12 m3 l2">
