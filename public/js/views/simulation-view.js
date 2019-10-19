@@ -69,9 +69,45 @@ function simulationOverview() {
 `;
 }
 
+function simulationOverviewMarge() {
+    return `
+    <div class="section overview">
+        <div class="row">
+            <div class="col l4 show-on-large"></div>
+            <div class="col s12 l4">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="amber-text medium material-icons icon-size">add_circle_outline</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>Marge</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.getMarge() + `%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    `;
+}
+
 function divider() {
     return `<div class="divider"></div>
 `;
+}
+
+function infoText() {
+    return `<div class="row">
+        <div class="col s12">
+            <p class="light">` + getText() + `</p>
+        </div>
+    </div>
+    `;
 }
 
 function simulationActions() {
@@ -89,9 +125,9 @@ function simulationActions() {
                         <div class="card-content">
                             <h4 class="center deep-orange-text"><i class="material-icons icon-size">settings</i>
                             </h4>
-                            <span class="card-title center">Produktion</span>
+                            <span class="card-title center">` + getActionTitleA() + `</span>
 
-                            <p class="light">` + "store.actionTextProduktion" + `</p>
+                            <p class="light">` + getActionTextA() + `</p>
                         </div>
                     </div>
                 </a>
@@ -103,9 +139,9 @@ function simulationActions() {
                         <div class="card-content">
                             <h4 class="center amber-text"><i class="material-icons icon-size">lightbulb_outline</i>
                             </h4>
-                            <span class="card-title center">Innovation</span>
+                            <span class="card-title center">` + getActionTitleB() + `</span>
 
-                            <p class="light">` + "store.actionTextInnovation" + `</p>
+                            <p class="light">` + getActionTextB() + `</p>
                         </div>
                     </div>
                 </a>
@@ -118,5 +154,26 @@ function simulationActions() {
             </div>
         </div>
     </div>
+`;
+}
+
+function answerGiven() {
+    return `<div class="row">
+        <div class="col s12">
+            <h4>Gewählte Investition: ` + getUserAnswer() + `</h4>
+        </div>
+        <div class="col s12">
+            <p class="light">Es fehlen noch ` + getCountFehlendeAntworten() + ` Antworten</p>
+        </div>
+    </div>
+    `;
+}
+
+function buttonNextStage() {
+    return `<div class="row">
+                <div class="col s12">
+                    <a class="waves-effect waves-light btn" onclick="nextStage()" href="javascript:void(0);">Weiter<i class="material-icons right">send</i></a>
+                </div>
+            </div>
 `;
 }

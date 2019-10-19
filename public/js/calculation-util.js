@@ -1,4 +1,5 @@
 "use strict";
+const LOCALE = 'de-CH';
 const ROUND_ON_PRODUKTE = 100;
 const ROUND_ON_BETRAG = 1000;
 
@@ -38,6 +39,11 @@ Calculation.prototype.getGewinn = function () {
 Calculation.prototype.getVerkProdukte = function () {
     let verkProdukte = roundProdukte(this.umsatz / this.produktPreis);
     return verkProdukte.toLocaleString(LOCALE);
+};
+
+Calculation.prototype.getMarge = function () {
+    let marge = Math.round(this.marge * 100);
+    return marge.toLocaleString(LOCALE);
 };
 
 Calculation.prototype.calculate = function (stage, userSelections, innoSelectionsCountPerStage) {

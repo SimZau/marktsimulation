@@ -5,7 +5,7 @@ const selectedColor = "#fff3e0";
 const unselectedColor = "#ffffff";
 
 //todo remove
-//localStorage.removeItem('username');
+// localStorage.removeItem('username');
 
 init();
 
@@ -64,5 +64,13 @@ function lockChosenAnswer() {
     saveUser({
         answers: store.userAnswers
     });
-    showAnswerGiven();
+    showSimulationView();
+}
+
+function nextStage() {
+    if (getCountFehlendeAntworten() === 0 && store.investitionStage !== 6) {
+        saveGroup({
+            investitionStage: store.investitionStage + 1,
+        });
+    }
 }

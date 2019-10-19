@@ -8,7 +8,6 @@ let selectAnswerButton;
 let selectAnswerText;
 let produktionCard;
 let innovationCard;
-let actionsSection;
 
 const main = document.querySelector("#main");
 
@@ -33,24 +32,33 @@ function initActionSelectors() {
     selectAnswerText = document.querySelector("#selectAnswerText");
     produktionCard = document.querySelector("#produktionCard");
     innovationCard = document.querySelector("#innovationCard");
-    actionsSection = document.querySelector("#actionsSection");
 }
 
 function showSimulationView() {
     if (store.simulationStarted) {
         let html = year();
-        html += simulationOverview();
-        html += divider();
-        html += simulationActions();
+        if (store.investitionStage > 0) {
+            html += simulationOverview();
+        }
+        if (store.investitionStage < 6) {
+            html += divider();
+            html += infoText();
+            if (getUserAnswer()) {
+                html += answerGiven();
+                if (getCountFehlendeAntworten() === 0) {
+                    html += buttonNextStage();
+                }
+            } else {
+                html += simulationActions();
+            }
+        } else {
+            html += simulationOverviewMarge();
+        }
         main.innerHTML = html;
         initActionSelectors();
     } else {
         main.innerHTML = userOverview();
     }
-}
-
-function showAnswerGiven() {
-    actionsSection.innerHTML = "";
 }
 
 function setColor(investitionCard, color) {

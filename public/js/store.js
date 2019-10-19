@@ -5,6 +5,7 @@ const store = {
     usergroup: localStorage.getItem('usergroup'),
     countUsersInGroup: 0,
     usernamesInGroup: [],
+    answerCountPerStage: [],
     userAnswers: [],
     innoSelectionsCountPerStage: [],
     investitionStage: 0,
@@ -15,4 +16,12 @@ const store = {
 
 function getGroupId() {
     return store.userclass + "_" + store.usergroup;
+}
+
+function getUserAnswer() {
+    return store.userAnswers[store.investitionStage];
+}
+
+function getCountFehlendeAntworten() {
+    return store.countUsersInGroup - store.answerCountPerStage[store.investitionStage];
 }

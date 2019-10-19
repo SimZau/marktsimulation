@@ -68,6 +68,14 @@ function getInnoSelectionsCountPerStage(users) {
     return innoSelectionscountPerStage;
 }
 
+function getAnswerCountPerStage(users) {
+    let answerCountPerStage = [];
+    for (let i = 0; i <= store.investitionStage; i++) {
+        answerCountPerStage[i] = users.docs.map(user => user.data().answers[i] ? 1 : 0).reduce((acc, cur) => acc + cur);
+    }
+    return answerCountPerStage;
+}
+
 function subscribeDataLoader() {
     fGroups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
         if (user && user.exists) {
@@ -75,26 +83,32 @@ function subscribeDataLoader() {
             store.userAnswers = user.data().answers;
         }
     });
-    fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
-        if (users && users.docs) {
-            if (!store.simulationStarted && store.countUsersInGroup !== users.size) {
-                store.usernamesInGroup = users.docs.map(user => user.data().name);
-                store.countUsersInGroup = users.size;
-                showSimulationView();
-                showGroupmembercount();
-            }
-            if (store.simulationStarted && store.investitionStage > store.innoSelectionsCountPerStage.length) {
-                store.innoSelectionsCountPerStage = getInnoSelectionsCountPerStage(users);
-            }
-        }
-    });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {
-        if (group && group.exists) {
-            if ((!store.simulationStarted && group.data().simulationStarted) || (store.investitionStage !== group.data().investitionStage)) {
-                store.investitionStage = group.data().investitionStage;
-                store.simulationStarted = group.data().simulationStarted;
+        if ((!store.simulationStarted && group.data().simulationStarted) || (store.investitionStage !== group.data().investitionStage)) {
+            store.investitionStage = group.data().investitionStage;
+            store.simulationStarted = group.data().simulationStarted;
+            fGroups.doc(getGroupId()).collection("users").get().then(function (users) {
+                store.innoSelectionsCountPerStage = getInnoSelectionsCountPerStage(users);
                 store.calculation.calculate(store.investitionStage, store.userAnswers, store.innoSelectionsCountPerStage);
                 showSimulationView();
+            });
+        }
+    });
+    fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
+        if (users && users.docs) {
+            if (store.countUsersInGroup !== users.size) {
+                store.usernamesInGroup = users.docs.map(user => user.data().name);
+                store.countUsersInGroup = users.size;
+                showGroupmembercount();
+                showSimulationView();
+            }
+            if (store.simulationStarted) {
+                let newAnswerCountPerStage = getAnswerCountPerStage(users);
+                let answerCountChanged = newAnswerCountPerStage !== store.answerCountPerStage;
+                store.answerCountPerStage = newAnswerCountPerStage;
+                if (getUserAnswer() && answerCountChanged) {
+                    showSimulationView();
+                }
             }
         }
     });
