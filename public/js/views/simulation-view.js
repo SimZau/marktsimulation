@@ -1,5 +1,7 @@
-const simulationOverview =
-    `<!-- Overview -->
+"use strict";
+
+function simulationOverview() {
+    return `<!-- Overview -->
     <div className="section overview">
         <div className="row">
             <div className="col s12 l4">
@@ -57,12 +59,15 @@ const simulationOverview =
         </div>
     </div>
 `;
+}
 
-const divider = `<div className="divider"></div>
+function divider() {
+    return `<div className="divider"></div>
 `;
+}
 
-const simulationActions =
-    `<!-- Actions -->
+function simulationActions() {
+    return `<!-- Actions -->
     <div className="section">
         <div className="row">
             <div className="col s12">
@@ -78,7 +83,7 @@ const simulationActions =
                             </h4>
                             <span className="card-title center">Produktion</span>
 
-                            <p className="light">` + store.actionTextProduktion +  `</p>
+                            <p className="light">` + store.actionTextProduktion + `</p>
                         </div>
                     </div>
                 </a>
@@ -106,3 +111,4 @@ const simulationActions =
         </div>
     </div>
 `;
+}

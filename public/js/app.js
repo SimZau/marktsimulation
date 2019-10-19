@@ -1,3 +1,4 @@
+"use strict";
 const PRODUKTION_ID = "Produktion";
 const INNOVATION_ID = "Innovation";
 const selectedColor = "#fff3e0";
@@ -19,7 +20,6 @@ function init() {
 }
 
 function startSimulation() {
-    //todo 14.10.19: thats where I was
     fGroups.doc(getGroupId()).update({
         simulationStarted: 0
     }).then(function () {

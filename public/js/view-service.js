@@ -1,3 +1,4 @@
+"use strict";
 const navbarUsername = document.querySelector("#navbarUsername");
 const navbarUser = document.querySelector("#navbarUser");
 const footerGroup = document.querySelector("#footerGroup");

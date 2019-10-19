@@ -1,3 +1,4 @@
+"use strict";
 const store = {
     username: localStorage.getItem('username'),
     userclass: localStorage.getItem('userclass'),

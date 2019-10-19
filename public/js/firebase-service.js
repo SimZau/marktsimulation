@@ -1,4 +1,5 @@
-var config = {
+"use strict";
+let config = {
     apiKey: "AIzaSyA2qPtA81cSWRj-tOEwF1fgTmnbweFOnbk",
     authDomain: "markt-simulation.firebaseapp.com",
     databaseURL: "https://markt-simulation.firebaseio.com",

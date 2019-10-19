@@ -1,3 +1,4 @@
+"use strict";
 function createUserentry(username) {
     return `<div class="row">
             <div class="col s12">
