@@ -15,7 +15,7 @@ const fGroups = db.collection("groups");
 
 function save(doc, object, success, error = (e) => console.log("Error: ", e)) {
     doc.get().then(function (loadedDoc) {
-        loadedDoc.exists ? doc.update(object) : doc.save(object);
+        loadedDoc.exists ? doc.update(object) : doc.set(object);
     }).then(success).catch(error);
 }
 
@@ -62,20 +62,24 @@ function subscribeDataLoader() {
         }
     });
     fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
-        if (!store.simulationStarted && store.countUsersInGroup !== users.size) {
-            showUserOverview();
+        if (users && users.docs) {
+            store.usernamesInGroup = users.docs.map(user => user.data().name);
+            if (!store.simulationStarted && store.countUsersInGroup !== users.size) {
+                showSimulationView();
+            }
+            store.countUsersInGroup = users.size;
+            footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
         }
-        store.countUsersInGroup = users.size;
-        store.usernamesInGroup = users.map(user => user.name);
-        footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
     });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {
-        store.investitionStage = group.data().investitionStage;
-        if (!store.simulationStarted && group.data().simulationStarted) {
-            userOverview.style.display = "none";
-            simulationDiv.style.display = "block";
+        if (group && group.exists) {
+            store.investitionStage = group.data().investitionStage;
+            if (!store.simulationStarted && group.data().simulationStarted) {
+                userOverview.style.display = "none";
+                simulationDiv.style.display = "block";
+            }
+            store.simulationStarted = group.data().simulationStarted;
+            console.log("Group loaded: Stage " + store.investitionStage);
         }
-        store.simulationStarted = group.data().simulationStarted;
-        console.log("Group loaded: Stage " + store.investitionStage);
     });
 }

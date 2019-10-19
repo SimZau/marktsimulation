@@ -4,7 +4,7 @@ const selectedColor = "#fff3e0";
 const unselectedColor = "#ffffff";
 
 //todo remove
-localStorage.removeItem('username');
+//localStorage.removeItem('username');
 
 init();
 
@@ -19,6 +19,7 @@ function init() {
 }
 
 function startSimulation() {
+    //todo 14.10.19: thats where I was
     fGroups.doc(getGroupId()).update({
         simulationStarted: 0
     }).then(function () {
@@ -37,7 +38,6 @@ function setUpUiUserdata(form) {
     localStorage.setItem('username', store.username);
     localStorage.setItem('userclass', store.userclass);
     localStorage.setItem('usergroup', store.usergroup);
-    setUserDataOnView();
 }
 
 function saveData(form) {
@@ -50,11 +50,12 @@ function saveData(form) {
     );
 }
 
-function save(form) {
-    console.log("User to save: " + store.username);
+function saveForm(form) {
     setUpUiUserdata(form);
+    console.log("User to save: " + store.username);
     saveData(form);
     subscribeDataLoader();
+    setUserDataOnView();
 }
 
 function readRadio(form, radioName) {

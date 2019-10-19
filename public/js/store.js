@@ -7,7 +7,8 @@ const store = {
     userAnswers: [],
     investitionStage: 0,
     simulationStarted: 0,
-    chosenAnswer: undefined
+    chosenAnswer: undefined,
+    calculation: new Calculation()
 };
 
 function getGroupId() {

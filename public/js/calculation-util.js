@@ -11,31 +11,61 @@ const STAGE_BOOST = [
 
 const START_UMSATZ = 100000;
 const START_MARGE = 0.2;
+const START_PRODUKT_PREIS = 100;
 
-function calculateUmsatzSteigerung(index) {
-    if (userSelections[index] === PRODUKTION_ID) {
-        return STAGE_BOOST[index].production * PRODUKTION_FACTOR;
-    } else {
-        return STAGE_BOOST[index].innovation * INNOVATION_FACTOR;
+let Calculation = (function () {
+    function Calculation() {
+        this.umsatz = START_UMSATZ;
+        this.marge = START_MARGE;
+        this.produktPreis = START_PRODUKT_PREIS;
     }
-}
 
-function calculateUmsatzOfStage(userSelections, stage) {
-    let umsatz = START_UMSATZ;
-    for (i = 0; i < stage; i++) {
-        umsatz *= (1 + calculateUmsatzSteigerung(i));
+    Calculation.prototype.getUmsatz = function () {
+        return mapBetragToString(this.umsatz);
+    };
+
+    Calculation.prototype.getGewinn = function () {
+        return mapBetragToString(this.umsatz * this.marge);
+    };
+
+    Calculation.prototype.getVerkProdukte = function () {
+        let verkProdukte = (Math.round(this.umsatz / this.produktPreis));
+        return verkProdukte.toLocaleString('de-CH');
+    };
+
+    Calculation.prototype.calculate = function (stage) {
+        this.umsatz *= calculateUmsatzSteigerung(stage); //todo thats where I was
+    };
+
+    function mapBetragToString(betrag) {
+        return betrag.toLocaleString('de-CH', {minimumFractionDigits: 2});
     }
-    return umsatz;
-}
 
-function calculateMargeSteigerung(innoCount) {
-    return INNOVATION_FACTOR*innoCount/MARGE_DIVISOR;
-}
-
-function calculateMargeOfStage(userSelections, stage, innoSelectionsCountPerStage) {
-    let marge = START_MARGE;
-    for (i = 0; i < stage; i++) {
-        marge += calculateMargeSteigerung(innoSelectionsCountPerStage[i]);
+    function calculateUmsatzSteigerung(index) {
+        if (userSelections[index] === PRODUKTION_ID) {
+            return STAGE_BOOST[index].production * PRODUKTION_FACTOR;
+        } else {
+            return STAGE_BOOST[index].innovation * INNOVATION_FACTOR;
+        }
     }
-    return marge;
-}
+
+    function calculateUmsatzOfStage(userSelections, stage) {
+        let umsatz = START_UMSATZ;
+        for (i = 0; i < stage; i++) {
+            umsatz *= (1 + calculateUmsatzSteigerung(i));
+        }
+        return umsatz;
+    }
+
+    function calculateMargeSteigerung(innoCount) {
+        return INNOVATION_FACTOR * innoCount / MARGE_DIVISOR;
+    }
+
+    function calculateMargeOfStage(userSelections, stage, innoSelectionsCountPerStage) {
+        let marge = START_MARGE;
+        for (i = 0; i < stage; i++) {
+            marge += calculateMargeSteigerung(innoSelectionsCountPerStage[i]);
+        }
+        return marge;
+    }
+}());
