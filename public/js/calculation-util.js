@@ -1,5 +1,4 @@
 "use strict";
-const LOCALE = 'de-CH';
 const ROUND_ON_PRODUKTE = 100;
 const ROUND_ON_BETRAG = 1000;
 
@@ -9,6 +8,7 @@ const PRODUKT_PREIS_FACTOR = 0.25;
 const MARGE_DIVISOR = 5;
 const STAGE_BOOST = [
     {innovation: 0, production: 0},
+    {innovation: 1, production: 1},
     {innovation: 1, production: 1.1},
     {innovation: 1, production: 0.9},
     {innovation: 1.1, production: 1},

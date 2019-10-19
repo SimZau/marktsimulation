@@ -20,15 +20,7 @@ function init() {
 }
 
 function startSimulation() {
-    fGroups.doc(getGroupId()).update({
-        simulationStarted: 0
-    }).then(function () {
-        console.log("Saved group!");
-    }).catch(function (error) {
-        console.log("Error: ", error);
-    });
-    userOverview.style.display = "none";
-    simulationDiv.style.display = "block";
+    saveGroup({simulationStarted: 1});
 }
 
 function setUpUiUserdata(form) {
@@ -69,12 +61,8 @@ function readRadio(form, radioName) {
 
 function lockChosenAnswer() {
     store.userAnswers[store.investitionStage] = store.chosenAnswer;
-    groups.doc(store.username).update({
-        answers: store.userAnswers,
-        investitionStage: (store.investitionStage + 1)
-    }).then(function () {
-        console.log(store.username + ": Saved Answer: " + store.chosenAnswer);
-    }).catch(function (error) {
-        console.log("Error: ", error);
+    saveUser({
+        answers: store.userAnswers
     });
+    showAnswerGiven();
 }

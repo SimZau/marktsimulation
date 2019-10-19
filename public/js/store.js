@@ -6,6 +6,7 @@ const store = {
     countUsersInGroup: 0,
     usernamesInGroup: [],
     userAnswers: [],
+    innoSelectionsCountPerStage: [],
     investitionStage: 0,
     simulationStarted: 0,
     chosenAnswer: undefined,

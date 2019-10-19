@@ -4,16 +4,16 @@ const navbarUser = document.querySelector("#navbarUser");
 const footerGroup = document.querySelector("#footerGroup");
 const footerGroupname = document.querySelector("#footerGroupname");
 const footerGroupmembercount = document.querySelector("#footerGroupmembercount");
-const simulationDiv = document.querySelector("#simulation");
-const selectAnswerButton = document.querySelector("#selectAnswerButton");
-const selectAnswerText = document.querySelector("#selectAnswerText");
-const produktionCard = document.querySelector("#produktionCard");
-const innovationCard = document.querySelector("#innovationCard");
+let selectAnswerButton;
+let selectAnswerText;
+let produktionCard;
+let innovationCard;
+let actionsSection;
 
 const main = document.querySelector("#main");
 
 function showUserForm() {
-    main.innerHTML = userformView;
+    main.innerHTML = userformView();
 }
 
 function setUserDataOnView() {
@@ -24,12 +24,33 @@ function setUserDataOnView() {
     footerGroupname.innerHTML = store.userclass + ", Gruppe " + store.usergroup;
 }
 
+function showGroupmembercount() {
+    footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
+}
+
+function initActionSelectors() {
+    selectAnswerButton = document.querySelector("#selectAnswerButton");
+    selectAnswerText = document.querySelector("#selectAnswerText");
+    produktionCard = document.querySelector("#produktionCard");
+    innovationCard = document.querySelector("#innovationCard");
+    actionsSection = document.querySelector("#actionsSection");
+}
+
 function showSimulationView() {
     if (store.simulationStarted) {
-        simulationDiv.style.display = "block";
+        let html = year();
+        html += simulationOverview();
+        html += divider();
+        html += simulationActions();
+        main.innerHTML = html;
+        initActionSelectors();
     } else {
         main.innerHTML = userOverview();
     }
+}
+
+function showAnswerGiven() {
+    actionsSection.innerHTML = "";
 }
 
 function setColor(investitionCard, color) {

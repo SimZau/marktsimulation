@@ -55,6 +55,19 @@ function initUser(name, age, gender, region) {
     });
 }
 
+function getInnoSelectionsCountPerStage(users) {
+    let innoSelectionscountPerStage = [];
+    for (let i = 0; i < store.investitionStage; i++) {
+        innoSelectionscountPerStage[i] = 0;
+    }
+    for (let answers in users.docs.map(user => user.data().answers)) {
+        for (let i = 0; i < store.investitionStage; i++) {
+            innoSelectionscountPerStage[i] += answers[i] === INNOVATION_ID ? 1 : 0;
+        }
+    }
+    return innoSelectionscountPerStage;
+}
+
 function subscribeDataLoader() {
     fGroups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
         if (user && user.exists) {
@@ -64,23 +77,25 @@ function subscribeDataLoader() {
     });
     fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
         if (users && users.docs) {
-            store.usernamesInGroup = users.docs.map(user => user.data().name);
             if (!store.simulationStarted && store.countUsersInGroup !== users.size) {
+                store.usernamesInGroup = users.docs.map(user => user.data().name);
+                store.countUsersInGroup = users.size;
                 showSimulationView();
+                showGroupmembercount();
             }
-            store.countUsersInGroup = users.size;
-            footerGroupmembercount.innerHTML = "Gruppenmitglieder: " + store.countUsersInGroup;
+            if (store.simulationStarted && store.investitionStage > store.innoSelectionsCountPerStage.length) {
+                store.innoSelectionsCountPerStage = getInnoSelectionsCountPerStage(users);
+            }
         }
     });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {
         if (group && group.exists) {
-            store.investitionStage = group.data().investitionStage;
-            if (!store.simulationStarted && group.data().simulationStarted) {
-                userOverview.style.display = "none";
-                simulationDiv.style.display = "block";
+            if ((!store.simulationStarted && group.data().simulationStarted) || (store.investitionStage !== group.data().investitionStage)) {
+                store.investitionStage = group.data().investitionStage;
+                store.simulationStarted = group.data().simulationStarted;
+                store.calculation.calculate(store.investitionStage, store.userAnswers, store.innoSelectionsCountPerStage);
+                showSimulationView();
             }
-            store.simulationStarted = group.data().simulationStarted;
-            console.log("Group loaded: Stage " + store.investitionStage);
         }
     });
 }
