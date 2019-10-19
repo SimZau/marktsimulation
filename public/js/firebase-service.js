@@ -58,12 +58,7 @@ function initUser(name, age, gender, region) {
 function getInnoSelectionsCountPerStage(users) {
     let innoSelectionscountPerStage = [];
     for (let i = 0; i < store.investitionStage; i++) {
-        innoSelectionscountPerStage[i] = 0;
-    }
-    for (let answers in users.docs.map(user => user.data().answers)) {
-        for (let i = 0; i < store.investitionStage; i++) {
-            innoSelectionscountPerStage[i] += answers[i] === INNOVATION_ID ? 1 : 0;
-        }
+        innoSelectionscountPerStage[i] = users.docs.map(user => user.data().answers[i] === INNOVATION_ID ? 1 : 0).reduce((acc, cur) => acc + cur);
     }
     return innoSelectionscountPerStage;
 }
