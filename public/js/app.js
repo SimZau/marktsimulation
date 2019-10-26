@@ -10,13 +10,15 @@ const unselectedColor = "#ffffff";
 init();
 
 function init() {
-    if (!store.username) {
-        showUserForm();
-    } else {
-        subscribeDataLoader();
-        setUserDataOnView();
-        showSimulationView();
-    }
+    fGroups.doc(getGroupId()).collection("users").doc(store.username).get().then(function (user) {
+        if (user && user.exists) {
+            subscribeDataLoader();
+            setUserDataOnView();
+            showSimulationView();
+        } else {
+            showUserForm();
+        }
+    });
 }
 
 function startSimulation() {

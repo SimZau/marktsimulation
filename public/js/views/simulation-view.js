@@ -12,7 +12,7 @@ function simulationOverview() {
     return `<!-- Overview -->
     <div class="section overview">
         <div class="row">
-            <div class="col s12 l4">
+            <div class="col s12 l6 xl3">
                 <div class="row overview-element z-depth-1">
                     <div class="col s2">
                         <i class="pink-text text-darken-2 medium material-icons icon-size">attach_money</i>
@@ -30,7 +30,7 @@ function simulationOverview() {
                 </div>
 
             </div>
-            <div class="col s12 l4">
+            <div class="col s12 l6 xl3">
                 <div class="row overview-element z-depth-1">
                     <div class="col s2">
                         <i class="green-text text-darken-2 medium material-icons icon-size">trending_up</i>
@@ -47,7 +47,24 @@ function simulationOverview() {
                     </div>
                 </div>
             </div>
-            <div class="col s12 l4">
+            <div class="col s12 l6 xl3">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="amber-text medium material-icons icon-size">add_circle_outline</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>Marge</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.getMarge() + `%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l6 xl3">
                 <div class="row overview-element z-depth-1">
                     <div class="col s2">
                         <i class="indigo-text medium material-icons icon-size">shopping_cart</i>
@@ -69,33 +86,6 @@ function simulationOverview() {
 `;
 }
 
-function simulationOverviewMarge() {
-    return `
-    <div class="section overview">
-        <div class="row">
-            <div class="col l4 show-on-large"></div>
-            <div class="col s12 l4">
-                <div class="row overview-element z-depth-1">
-                    <div class="col s2">
-                        <i class="amber-text medium material-icons icon-size">add_circle_outline</i>
-                    </div>
-                    <div class="col s10">
-                        <div class="row">
-                            <div class="col s12">
-                                <label>Marge</label>
-                            </div>
-                            <div class="col s12">
-                                <span>` + store.calculation.getMarge() + `%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </div>
-    `;
-}
-
 function divider() {
     return `<div class="divider"></div>
 `;
@@ -115,7 +105,7 @@ function simulationActions() {
     <div id="actionsSection" class="section">
         <div class="row">
             <div class="col s12">
-                <h4>Wähle deine Investition:</h4>
+                <h4>Wähle deine ` + getInvestitionsart() + `:</h4>
             </div>
         </div>
         <div class="row">

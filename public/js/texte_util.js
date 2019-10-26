@@ -58,3 +58,7 @@ function getActionTextB() {
 function getText() {
     return TEXTE_OF_STAGE[store.investitionStage];
 }
+
+function getInvestitionsart() {
+    return store.investitionStage ? "Investition" : "Strategie";
+}

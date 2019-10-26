@@ -18,8 +18,15 @@ function getGroupId() {
     return store.userclass + "_" + store.usergroup;
 }
 
+function getStrategienamenForInvestition(investition) {
+    return investition === PRODUKTION_ID ? "Strategie A" : "Strategie B";
+}
+
 function getUserAnswer() {
-    return store.userAnswers[store.investitionStage];
+    if (store.investitionStage) {
+        return store.userAnswers[store.investitionStage];
+    }
+    return getStrategienamenForInvestition(store.userAnswers[store.investitionStage]);
 }
 
 function getCountFehlendeAntworten() {

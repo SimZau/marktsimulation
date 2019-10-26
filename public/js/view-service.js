@@ -52,9 +52,12 @@ function showSimulationView() {
                 html += simulationActions();
             }
         } else {
-            html += simulationOverviewMarge();
+            html += gewinnChart();
         }
         main.innerHTML = html;
+        if (store.investitionStage >= 6) {
+            createGewinnChart();
+        }
         initActionSelectors();
     } else {
         main.innerHTML = userOverview();
@@ -67,7 +70,7 @@ function setColor(investitionCard, color) {
 
 function chooseInvestition(investition) {
     store.chosenAnswer = investition;
-    selectAnswerText.innerHTML = investition;
+    selectAnswerText.innerHTML = store.investitionStage ? investition : getStrategienamenForInvestition(investition);
     selectAnswerButton.style.display = "block";
     if (PRODUKTION_ID === investition) {
         setColor(produktionCard, selectedColor);

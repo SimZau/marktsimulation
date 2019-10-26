@@ -84,23 +84,8 @@ a:active .card{
     }
 }
 
-@media only screen and (min-width: 1200px) {
-    .overview-element {
-        padding: 10px 10px;
-        margin: 10px 10px !important;
-    }
-}
-
 @media only screen and (min-width: 1600px) {
     .overview-element {
-        margin-left: 30px !important;
-        margin-right: 30px !important;
-    }
-}
-
-@media only screen and (min-width: 1900px) {
-    .overview-element {
-        margin-left: 40px !important;
-        margin-right: 40px !important;
+        margin: 15px 15px !important;
     }
 }

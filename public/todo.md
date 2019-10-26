@@ -1,0 +1,5 @@
+- Marge überall
+- Endtext, Ende klarer
+- Starttext
+- Admin-Gui
+- Start durch Admin
