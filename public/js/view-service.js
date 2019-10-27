@@ -55,12 +55,11 @@ function showSimulationView() {
                 html += simulationActions();
             }
         } else {
-            html += gewinnChart();
+            //html += gewinnChart();
+            //createGewinnChart();
+            html += simulationOverviewMarktanteil();
         }
         main.innerHTML = html;
-        // if (store.investitionStage >= 6) {
-        //     createGewinnChart();
-        // }
         initActionSelectors();
     } else {
         main.innerHTML = userOverview();

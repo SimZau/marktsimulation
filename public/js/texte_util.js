@@ -30,7 +30,7 @@ const TEXTE_OF_STAGE = [
     ,
     "Auf Grund des Klimawandels haben sich die besten Wissenschaftler des Landes um dessen Bekämpfung zusammengeschlossen. Für eigene Forschungsprojekte verbleiben nur noch zweitrangige Forschungsteams. Wie investierst du dieses Jahr?"
     ,
-    "Gratulation, du hast die Simulation erfolgreich abgeschlossen.<br> Vielen Dank!"
+    "Gratulation! Du hast die Simulation erfolgreich abgeschlossen.<br> Vielen Dank!"
 ];
 
 function getActionTexteOfStage() {

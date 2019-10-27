@@ -69,6 +69,19 @@ function userformView() {
                     <option value="1">Gruppe 1</option>
                     <option value="2">Gruppe 2</option>
                     <option value="3">Gruppe 3</option>
+                    <option value="4">Gruppe 4</option>
+                    <option value="5">Gruppe 5</option>
+                    <option value="6">Gruppe 6</option>
+                    <option value="7">Gruppe 7</option>
+                    <option value="8">Gruppe 8</option>
+                    <option value="9">Gruppe 9</option>
+                    <option value="10">Gruppe 10</option>
+                    <option value="11">Gruppe 11</option>
+                    <option value="12">Gruppe 12</option>
+                    <option value="13">Gruppe 13</option>
+                    <option value="14">Gruppe 14</option>
+                    <option value="15">Gruppe 15</option>
+                    <option value="16">Gruppe 16</option>
                 </select>
             </div>
         </div>

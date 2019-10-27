@@ -56,9 +56,9 @@ function initUser(name, age, gender, region) {
     });
 }
 
-function getInnoSelectionsCountPerStage(users) {
+function getInnoSelectionsCountPerStage(users, stage) {
     let innoSelectionscountPerStage = [];
-    for (let i = 0; i < store.investitionStage; i++) {
+    for (let i = 0; i < stage; i++) {
         innoSelectionscountPerStage[i] = users.docs.map(user => user.data().answers[i] === INNOVATION_ID ? 1 : 0).reduce((acc, cur) => acc + cur);
     }
     return innoSelectionscountPerStage;
@@ -84,8 +84,11 @@ function subscribeDataLoader() {
             store.investitionStage = group.data().investitionStage;
             store.simulationStarted = group.data().simulationStarted;
             fGroups.doc(getGroupId()).collection("users").get().then(function (users) {
-                store.innoSelectionsCountPerStage = getInnoSelectionsCountPerStage(users);
+                store.innoSelectionsCountPerStage = getInnoSelectionsCountPerStage(users, store.investitionStage);
                 store.calculation.calculate(store.investitionStage, store.userAnswers, store.innoSelectionsCountPerStage);
+                if (store.investitionStage >= 6) {
+                    store.calculation.marktanteil = calculateMarktanteil(users);
+                }
                 showSimulationView();
             });
         }

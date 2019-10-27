@@ -22,12 +22,20 @@ const START_PRODUKT_PREIS = 100;
 
 function Calculation() {
     this.umsatz = START_UMSATZ;
+    this.gesamtUmsatz = START_UMSATZ;
     this.marge = START_MARGE;
     this.produktPreis = START_PRODUKT_PREIS;
+    this.marktanteil = 0;
 }
 
 Calculation.prototype.getUmsatz = function () {
     const umsatz = roundBetrag(this.umsatz);
+    return umsatz.toLocaleString(LOCALE);
+};
+
+
+Calculation.prototype.getGesamtUmsatz = function () {
+    const umsatz = roundBetrag(this.gesamtUmsatz);
     return umsatz.toLocaleString(LOCALE);
 };
 
@@ -36,8 +44,18 @@ Calculation.prototype.getGewinn = function () {
     return gewinn.toLocaleString(LOCALE);
 };
 
+Calculation.prototype.getGesamtGewinn = function () {
+    const gewinn = roundBetrag(this.gesamtUmsatz * this.marge);
+    return gewinn.toLocaleString(LOCALE);
+};
+
 Calculation.prototype.getVerkProdukte = function () {
     let verkProdukte = roundProdukte(this.umsatz / this.produktPreis);
+    return verkProdukte.toLocaleString(LOCALE);
+};
+
+Calculation.prototype.getGesamtVerkProdukte = function () {
+    let verkProdukte = roundProdukte(this.gesamtUmsatz / this.produktPreis);
     return verkProdukte.toLocaleString(LOCALE);
 };
 
@@ -47,7 +65,13 @@ Calculation.prototype.getMarge = function () {
 };
 
 Calculation.prototype.calculate = function (stage, userSelections, innoSelectionsCountPerStage) {
-    this.umsatz = calculateUmsatzOfStage(stage, userSelections);
+    let umsatz = START_UMSATZ;
+    this.gesamtUmsatz = START_UMSATZ;
+    for (let i = 0; i < stage; i++) {
+        umsatz *= (1 + calculateUmsatzSteigerung(i, userSelections));
+        this.gesamtUmsatz += umsatz;
+    }
+    this.umsatz = umsatz;
     console.log("Umsatz: " + this.getUmsatz());
     this.marge = calculateMargeOfStage(stage, innoSelectionsCountPerStage);
     console.log("Marge: " + this.marge);
@@ -63,14 +87,6 @@ function calculateUmsatzSteigerung(index, userSelections) {
     } else {
         return STAGE_BOOST[index].innovation * INNOVATION_FACTOR;
     }
-}
-
-function calculateUmsatzOfStage(stage, userSelections) {
-    let umsatz = START_UMSATZ;
-    for (let i = 0; i < stage; i++) {
-        umsatz *= (1 + calculateUmsatzSteigerung(i, userSelections));
-    }
-    return umsatz;
 }
 
 function calculateMargeSteigerung(innoCount) {
@@ -103,4 +119,19 @@ function roundBetrag(betrag) {
 
 function roundProdukte(produkte) {
     return Math.round(produkte / ROUND_ON_PRODUKTE) * ROUND_ON_PRODUKTE;
+}
+
+function calculateMarktanteil(users) {
+    let totalUmsatz = users.docs.map((user) => {
+        let calculation = new Calculation();
+        calculation.calculate(store.investitionStage, user.data().answers, store.innoSelectionsCountPerStage);
+        return calculation.umsatz;
+    }).reduce((acc, cur) => {
+        return acc + cur;
+    });
+    if (totalUmsatz) {
+        return Math.round(100 / totalUmsatz * store.calculation.umsatz);
+    } else {
+        return 0;
+    }
 }

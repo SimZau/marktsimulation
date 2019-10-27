@@ -33,7 +33,7 @@ function adminLoginView() {
     </form>`;
 }
 
-function adminViewUserStages(user) {
+function adminViewUserStages(user, innoCount, totalUmsatz) {
     let html = "";
     for (let i = 0; i < 6; i++) {
         let userAnswer = "";
@@ -47,15 +47,44 @@ function adminViewUserStages(user) {
         html += `<td>` + userAnswer + `</td>
 `;
     }
+    let calculation = new Calculation();
+    calculation.calculate(user.answers.length, user.answers, innoCount);
+    let marktanteil = calculateMarktanteilOfTotalUmsatz(calculation.umsatz, totalUmsatz);
+    html += `<td>` + calculation.getGesamtUmsatz() + ` CHF</td>`;
+    html += `<td>` + calculation.getGesamtGewinn() + ` CHF</td>`;
+    html += `<td>` + marktanteil + `%</td>`;
     return html;
+}
+
+function calculateMarktanteilOfTotalUmsatz(umsatz, totalUmsatz) {
+    if (totalUmsatz) {
+        return Math.round(100 / totalUmsatz * umsatz);
+    } else {
+        return 0;
+    }
+}
+
+function calculateTotalUmsatz(users, innoCount) {
+    return users.docs.map((user) => {
+        let calculation = new Calculation();
+        calculation.calculate(user.data().answers.length, user.data().answers, innoCount);
+        return calculation.umsatz;
+    }).reduce((acc, cur) => {
+        return acc + cur;
+    });
 }
 
 function adminViewUsers(users) {
     let html = "";
+    let stage = users.docs
+        .map((user) => user.data().answers.length)
+        .reduce((acc, cur) => cur < acc ? cur : acc);
+    let innoCount = getInnoSelectionsCountPerStage(users, stage);
+    let totalUmsatz = calculateTotalUmsatz(users, innoCount);
     users.forEach((user) => {
         html += `<tr>
                     <td>` + user.data().name + `</td>
-                    ` + adminViewUserStages(user.data()) + `
+                    ` + adminViewUserStages(user.data(), innoCount, totalUmsatz) + `
                 </tr>
     `;
     });
@@ -76,6 +105,9 @@ function adminViewGroup(users) {
                     <th>Stage 4</th>
                     <th>Stage 5</th>
                     <th>Stage 6</th>
+                    <th>Gesamtumsatz</th>
+                    <th>Gesamtgewinn</th>
+                    <th>Marge</th>
                 </tr>
             </thead>
 

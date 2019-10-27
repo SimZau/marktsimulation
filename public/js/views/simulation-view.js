@@ -86,6 +86,95 @@ function simulationOverview() {
 `;
 }
 
+function simulationOverviewMarktanteil() {
+ return `
+    <div class="section overview">
+        <div class="row">
+            <div class="col s12 l6 xl4"></div>
+            <div class="col s12 l6 xl4">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="amber-text text-darken-2 medium material-icons icon-size">pie_chart</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>Marktanteil</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.marktanteil + `%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    ` + divider() + `
+    <div class="row">
+        <div class="col s12">
+            <h5>Gesamtübersicht:</h5>
+        </div>
+    </div>
+    <div class="section overview">
+        <div class="row">
+            <div class="col s12 l6 xl3">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="pink-text text-darken-2 medium material-icons icon-size">attach_money</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>Umsatz</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.getGesamtUmsatz() + ` CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col s12 l6 xl3">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="green-text text-darken-2 medium material-icons icon-size">trending_up</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>Gewinn</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.getGesamtGewinn() + ` CHF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 l6 xl3">
+                <div class="row overview-element z-depth-1">
+                    <div class="col s2">
+                        <i class="indigo-text medium material-icons icon-size">shopping_cart</i>
+                    </div>
+                    <div class="col s10">
+                        <div class="row">
+                            <div class="col s12">
+                                <label>verk. Produkte</label>
+                            </div>
+                            <div class="col s12">
+                                <span>` + store.calculation.getGesamtVerkProdukte() + ` Stk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ `;
+}
+
 function divider() {
     return `<div class="divider"></div>
 `;
