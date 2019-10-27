@@ -91,6 +91,16 @@ function divider() {
 `;
 }
 
+
+function underTitel() {
+    return `<div class="row">
+        <div class="col s12 center-align">
+            <h5 class="light">` + getText() + `</h5>
+        </div>
+    </div>
+    `;
+}
+
 function infoText() {
     return `<div class="row">
         <div class="col s12">
@@ -162,7 +172,7 @@ function answerGiven() {
 function buttonNextStage() {
     return `<div class="row">
                 <div class="col s12">
-                    <a class="waves-effect waves-light btn" onclick="nextStage()" href="javascript:void(0);">Weiter<i class="material-icons right">send</i></a>
+                    <a class="waves-effect waves-light btn" onclick="nextStage()" href="javascript:void(0);">` + getWeiterText() + `<i class="material-icons right">send</i></a>
                 </div>
             </div>
 `;

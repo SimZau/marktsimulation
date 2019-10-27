@@ -11,7 +11,11 @@ const store = {
     investitionStage: 0,
     simulationStarted: 0,
     chosenAnswer: undefined,
-    calculation: new Calculation()
+    calculation: new Calculation(),
+    adminLogin: 0,
+    benutzer: undefined,
+    pHash: undefined,
+    adminClassSelected: undefined
 };
 
 function getGroupId() {
@@ -19,7 +23,10 @@ function getGroupId() {
 }
 
 function getStrategienamenForInvestition(investition) {
-    return investition === PRODUKTION_ID ? "Strategie A" : "Strategie B";
+    if (investition) {
+        return investition === PRODUKTION_ID ? "Strategie A" : "Strategie B";
+    }
+    return null;
 }
 
 function getUserAnswer() {

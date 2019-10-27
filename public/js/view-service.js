@@ -37,6 +37,9 @@ function initActionSelectors() {
 function showSimulationView() {
     if (store.simulationStarted) {
         let html = year();
+        if (store.investitionStage >= 6) {
+            html += underTitel();
+        }
         if (store.investitionStage > 0) {
             html += simulationOverview();
         }
@@ -79,4 +82,29 @@ function chooseInvestition(investition) {
         setColor(produktionCard, unselectedColor);
         setColor(innovationCard, selectedColor);
     }
+}
+
+function showAdminLogin() {
+    store.adminLogin = 1;
+    main.innerHTML = adminLoginView();
+}
+
+function showLoginError() {
+    M.toast({html: 'Der Benutzer mit diesem Passwort wurde nicht gefunden!', classes: 'deep-orange lighten-1'});
+}
+
+function showAdminPage() {
+    fGroups.get().then(function (groups) {
+        const classes = groups.docs
+            .map((group) => group.data().userclass)
+            .filter((element, index, array) => array.indexOf(element) === index && element);
+        main.innerHTML = adminViewClasses(classes);
+    })
+}
+
+function showAdminGroups(clazz) {
+    const adminGroupsDiv = document.querySelector("#adminGroups");
+    fGroups.where("userclass", "==", clazz).get().then(function(groups) {
+        adminGroupsDiv.innerHTML = adminViewGroups(groups)
+    });
 }

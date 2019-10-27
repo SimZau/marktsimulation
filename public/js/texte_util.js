@@ -29,6 +29,8 @@ const TEXTE_OF_STAGE = [
     "Der Staat hat sich entschieden, sämtliche Forschungsprojekte mit zusätzlichem Geld zu unterstützen. Resultate aus Investitionen in Innovation sind dieses Jahr leicht erfolgreicher als in den Vorjahren. Wie entscheidest du dich nun?"
     ,
     "Auf Grund des Klimawandels haben sich die besten Wissenschaftler des Landes um dessen Bekämpfung zusammengeschlossen. Für eigene Forschungsprojekte verbleiben nur noch zweitrangige Forschungsteams. Wie investierst du dieses Jahr?"
+    ,
+    "Gratulation, du hast die Simulation erfolgreich abgeschlossen.<br> Vielen Dank!"
 ];
 
 function getActionTexteOfStage() {
@@ -53,6 +55,10 @@ function getActionTextA() {
 
 function getActionTextB() {
     return getActionTexteOfStage().TEXT_B
+}
+
+function getWeiterText() {
+    return store.investitionStage >= 5 ? "Simulation Beenden" : "Weiter";
 }
 
 function getText() {

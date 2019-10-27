@@ -26,10 +26,16 @@
 <footer class="page-footer teal lighten-1">
     <div class="container">
         <div class="row" style="margin: 0">
-            <div id="footerGroup" class="col s12 valign-wrapper" style="display: none">
+            <div id="footerGroup" class="col s6 valign-wrapper" style="display: none">
                 <i class="small material-icons icon-size">people</i>
                 <span id="footerGroupname">Group</span>
                 <span id="footerGroupmembercount">Gruppenmitglieder:</span>
+            </div>
+            <div class="col s6 right-align">
+                <a onclick="showAdminLogin()" href="javascript:void(0);">
+                    <i class="small material-icons icon-size">lock</i>
+                    Admin
+                </a>
             </div>
         </div>
     </div>
@@ -67,6 +73,7 @@
 <script src="js/views/userentry-view.js"></script>
 <script src="js/views/simulation-view.js"></script>
 <script src="js/views/chart-view.js"></script>
+<script src="js/views/admin-view.js"></script>
 
 <!-- Services Import -->
 <script src="js/view-service.js"></script>

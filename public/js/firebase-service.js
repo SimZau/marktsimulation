@@ -13,6 +13,7 @@ firebase.initializeApp(config);
 const db = firebase.firestore();
 
 const fGroups = db.collection("groups");
+const fAdmin = db.collection("admins");
 
 function save(doc, object, success, error = (e) => console.log("Error: ", e)) {
     doc.get().then(function (loadedDoc) {
@@ -71,15 +72,36 @@ function getAnswerCountPerStage(users) {
     return answerCountPerStage;
 }
 
+function checkLoginAndShowAdminPage() {
+    fAdmin.doc(store.benutzer).get().then(function (benutzer) {
+        if (benutzer && benutzer.pHash === store.pHash) {
+            showAdminPage();
+        } else {
+            showAdminLogin();
+        }
+    });
+}
+
 function subscribeDataLoader() {
+    fAdmin.doc("admin").onSnapshot(function (admin) {
+        if (admin && admin.exists) {
+            if (store.adminLogin && store.benutzer && store.pHash) {
+                checkLoginAndShowAdminPage();
+            } else if (store.adminLogin) {
+                showAdminLogin();
+            }
+        }
+    });
     fGroups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
-        if (user && user.exists) {
+        if (!store.adminLogin && user && user.exists) {
             console.log("User loaded: " + user.data().name);
             store.userAnswers = user.data().answers;
+        } else if (store.adminLogin) {
+            checkLoginAndShowAdminPage();
         }
     });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {
-        if ((!store.simulationStarted && group.data().simulationStarted) || (store.investitionStage !== group.data().investitionStage)) {
+        if (!store.adminLogin && (!store.simulationStarted && group.data().simulationStarted) || (store.investitionStage !== group.data().investitionStage)) {
             store.investitionStage = group.data().investitionStage;
             store.simulationStarted = group.data().simulationStarted;
             fGroups.doc(getGroupId()).collection("users").get().then(function (users) {
@@ -87,10 +109,12 @@ function subscribeDataLoader() {
                 store.calculation.calculate(store.investitionStage, store.userAnswers, store.innoSelectionsCountPerStage);
                 showSimulationView();
             });
+        } else if (store.adminLogin) {
+            checkLoginAndShowAdminPage();
         }
     });
     fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
-        if (users && users.docs) {
+        if (!store.adminLogin && users && users.docs) {
             if (store.countUsersInGroup !== users.size) {
                 store.usernamesInGroup = users.docs.map(user => user.data().name);
                 store.countUsersInGroup = users.size;
@@ -105,6 +129,25 @@ function subscribeDataLoader() {
                     showSimulationView();
                 }
             }
+        } else if (store.adminLogin) {
+            checkLoginAndShowAdminPage();
+        }
+    });
+}
+
+function setLoggedIn(benutzer) {
+    M.toast({html: 'Hallo ' + benutzer, classes: 'lime'});
+    showAdminPage();
+}
+
+function login(form) {
+    store.pHash = form.pIn.value.hashCode();
+    store.benutzer = form.benutzer.value;
+    fAdmin.doc(store.benutzer).get().then(function (benutzer) {
+        if (benutzer && benutzer.data().pHash === store.pHash) {
+            setLoggedIn(store.benutzer);
+        } else {
+            showLoginError();
         }
     });
 }

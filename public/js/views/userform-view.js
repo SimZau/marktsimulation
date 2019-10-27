@@ -1,6 +1,6 @@
 "use strict";
 function userformView() {
-    return `<form id="userForm" class="section" action="javascript:" onsubmit="saveForm(this)">
+    return `<form id="userForm" class="section" action="javascript:void(0);" onsubmit="saveForm(this)">
         <div class="row form-element">
             <div class="col s12 m3 l2">
                 <label for="nameInput">Name</label>
