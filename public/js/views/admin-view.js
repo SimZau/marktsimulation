@@ -28,7 +28,7 @@ function adminLoginView() {
 
 function adminGroups(groups) {
     let html = "";
-    for (let group of groups) {
+    groups.forEach((group) => {
         html += `<li>\n`;
         html += `    <div class="collapsible-header"><i class="material-icons">place</i>Gruppe ` + group.data().usergroup + `</div>
     <div className="collapsible-body">`;
@@ -37,7 +37,7 @@ function adminGroups(groups) {
         }
         html += `    </div>
 </li>\n`;
-    }
+    });
     return html;
 }
 
@@ -50,8 +50,7 @@ function adminViewGroups(groups) {
 function klassenOptions(classes) {
     let html = "";
     for (let clazz of classes) {
-        // todo check functionality of showAdminGroups
-        html += `<option value="` + clazz + `" onclick="showAdminGroups(` + clazz + `)" ` + (store.adminClassSelected === clazz ? "selected" : "") + `>` + clazz + `</option>\n`;
+        html += `<option value="` + clazz + `" onclick="showAdminGroups('` + clazz + `')" ` + (store.adminClassSelected === clazz ? "selected" : "") + `>` + clazz + `</option>\n`;
     }
     if (store.adminClassSelected) {
         showAdminGroups(store.adminClassSelected);

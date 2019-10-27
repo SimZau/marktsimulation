@@ -4,13 +4,13 @@ const ACTION_TEXTE_OF_STAGE = {
     STRATEGIE: {
         TITLE_A: "Strategie A",
         TITLE_B: "Strategie B",
-        TEXT_A: "Du entscheidest dich, hochqualitative Produkte herzustellen. Mit hohen Einkaufskosten wird auch der Preis deiner Produkte sehr hoch sein, was sich natürlich positiv auf die Rendite auswirkt.",
+        TEXT_A: "Du entscheidest dich, hochqualitative Produkte herzustellen. Mit hohen Einkaufskosten wird auch der Preis deiner Produkte sehr hoch sein, was sich natürlich positiv auf die Gewinn auswirkt.",
         TEXT_B: "Du entscheidest dich, in die Massenproduktion einzusteigen. Deine Produkte werden günstig und daher auch sehr nachgefragt sein. Hohe Verkaufszahlen sind das Resultat."
     },
     PROD_INNO: {
         TITLE_A: "Produktion",
         TITLE_B: "Innovation",
-        TEXT_A: "Du investierst in die Produktion. Dein Geld fliesst also in den Kauf von neuen Maschinen welche es möglich machen, in grösseren Mengen zu produzieren. Resultierend erhöht sich deine Anzahl an verkauften Produkten.",
+        TEXT_A: "Du investierst in die Produktion. Dein Geld fliesst also in den Kauf von neuen Maschinen welche es möglich machen, in grösseren Mengen zu produzieren. Deshalb erhöht sich deine Anzahl an verkauften Produkten.",
         TEXT_B: "Du investierst in Innovation. Dein Geld fliesst in Forschungsprojekte, in denen Wissenschaftler neue Technologien entwickeln, um deine Produkte billiger zu Produzieren. Resultierend erhöht sich die Marge an deinem Umsatz. Aber Achtung! Die neu entwickelten Technologien werden nicht nur dir, sondern auch deiner Konkurrenz zur Verfügung stehen. (Investieren mehr als ein Spieler in Innovation, so summieren sich die Erhöhungen der Marge)."
     }
 };
