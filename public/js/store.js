@@ -15,7 +15,9 @@ const store = {
     adminLogin: 0,
     benutzer: undefined,
     pHash: undefined,
-    adminClassSelected: undefined
+    adminClassSelected: undefined,
+    adminGroupsSelected: [],
+    unsubscribeAdminGroupLoaders: []
 };
 
 function getGroupId() {

@@ -72,32 +72,11 @@ function getAnswerCountPerStage(users) {
     return answerCountPerStage;
 }
 
-function checkLoginAndShowAdminPage() {
-    fAdmin.doc(store.benutzer).get().then(function (benutzer) {
-        if (benutzer && benutzer.pHash === store.pHash) {
-            showAdminPage();
-        } else {
-            showAdminLogin();
-        }
-    });
-}
-
 function subscribeDataLoader() {
-    fAdmin.doc("admin").onSnapshot(function (admin) {
-        if (admin && admin.exists) {
-            if (store.adminLogin && store.benutzer && store.pHash) {
-                checkLoginAndShowAdminPage();
-            } else if (store.adminLogin) {
-                showAdminLogin();
-            }
-        }
-    });
     fGroups.doc(getGroupId()).collection("users").doc(store.username).onSnapshot(function (user) {
         if (!store.adminLogin && user && user.exists) {
             console.log("User loaded: " + user.data().name);
             store.userAnswers = user.data().answers;
-        } else if (store.adminLogin) {
-            checkLoginAndShowAdminPage();
         }
     });
     fGroups.doc(getGroupId()).onSnapshot(function (group) {
@@ -109,8 +88,6 @@ function subscribeDataLoader() {
                 store.calculation.calculate(store.investitionStage, store.userAnswers, store.innoSelectionsCountPerStage);
                 showSimulationView();
             });
-        } else if (store.adminLogin) {
-            checkLoginAndShowAdminPage();
         }
     });
     fGroups.doc(getGroupId()).collection("users").onSnapshot(function (users) {
@@ -129,8 +106,6 @@ function subscribeDataLoader() {
                     showSimulationView();
                 }
             }
-        } else if (store.adminLogin) {
-            checkLoginAndShowAdminPage();
         }
     });
 }

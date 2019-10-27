@@ -5,12 +5,12 @@ const selectedColor = "#fff3e0";
 const unselectedColor = "#ffffff";
 
 //todo remove
-// localStorage.removeItem('username');
+localStorage.removeItem('username');
 
 init();
 
 function init() {
-    fGroups.doc(getGroupId()).collection("users").doc(store.username).get().then(function (user) {
+    fGroups.doc(getGroupId()).collection("users").doc(store.username ? store.username : "NO_USERNAME_IN_LOCALSTORE").get().then(function (user) {
         if (user && user.exists) {
             subscribeDataLoader();
             setUserDataOnView();

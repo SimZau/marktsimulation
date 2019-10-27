@@ -58,9 +58,9 @@ function showSimulationView() {
             html += gewinnChart();
         }
         main.innerHTML = html;
-        if (store.investitionStage >= 6) {
-            createGewinnChart();
-        }
+        // if (store.investitionStage >= 6) {
+        //     createGewinnChart();
+        // }
         initActionSelectors();
     } else {
         main.innerHTML = userOverview();
@@ -89,6 +89,11 @@ function showAdminLogin() {
     main.innerHTML = adminLoginView();
 }
 
+function closeAdminLogin() {
+    store.adminLogin = 0;
+    init();
+}
+
 function showLoginError() {
     M.toast({html: 'Der Benutzer mit diesem Passwort wurde nicht gefunden!', classes: 'deep-orange lighten-1'});
 }
@@ -102,9 +107,47 @@ function showAdminPage() {
     })
 }
 
-function showAdminGroups(clazz) {
-    const adminGroupsDiv = document.querySelector("#adminGroups");
-    fGroups.where("userclass", "==", clazz).get().then(function(groups) {
-        adminGroupsDiv.innerHTML = adminViewGroups(groups)
+function selectClass(clazz) {
+    store.adminClassSelected = clazz;
+    store.adminGroupsSelected = [];
+    store.unsubscribeAdminGroupLoaders.forEach((unsubscribe) => unsubscribe());
+    store.unsubscribeAdminGroupLoaders = [];
+    fGroups.where("userclass", "==", store.adminClassSelected).get().then(function (groups) {
+        groups.forEach((group) => {
+            store.unsubscribeAdminGroupLoaders.push(
+                fGroups.doc(group.id).collection("users").onSnapshot(function () {
+                    showAdminGroups();
+                })
+            );
+            store.unsubscribeAdminGroupLoaders.push(
+                fGroups.doc(group.id).onSnapshot(function () {
+                    showAdminGroups();
+                })
+            );
+        });
     });
+}
+
+function showAdminGroups() {
+    return fGroups.where("userclass", "==", store.adminClassSelected).get().then(function (groups) {
+        const adminGroupsDiv = document.querySelector("#adminGroups");
+        adminGroupsDiv.innerHTML = adminViewGroups(groups);
+    }).then(function () {
+        store.adminGroupsSelected.forEach((groupId) => {
+            fGroups.doc(groupId).collection("users").get().then(function (users) {
+                const adminGroupSelectedContent = document.querySelector("#adminGroup" + groupId + "Content");
+                adminGroupSelectedContent.innerHTML = adminViewGroup(users);
+            });
+        });
+    });
+}
+
+function showAdminGroup(groupId) {
+    const index = store.adminGroupsSelected.indexOf(groupId);
+    if (index > -1) {
+        store.adminGroupsSelected.splice(index, 1);
+    } else {
+        store.adminGroupsSelected.push(groupId);
+    }
+    showAdminGroups();
 }

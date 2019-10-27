@@ -78,6 +78,10 @@ a:active .card{
     vertical-align: top;
 }
 
+.footerLogin {
+    color: inherit;
+}
+
 @media only screen and (min-width: 993px) {
     .overview-element {
         margin: 0 0 !important;
