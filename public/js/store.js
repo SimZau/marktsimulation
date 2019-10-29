@@ -41,7 +41,7 @@ function getUserAnswerOfStage(answers, stage) {
 }
 
 function getUserAnswer() {
-    getUserAnswerOfStage(store.userAnswers, store.investitionStage)
+    return getUserAnswerOfStage(store.userAnswers, store.investitionStage);
 }
 
 function getCountFehlendeAntworten() {
