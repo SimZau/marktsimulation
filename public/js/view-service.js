@@ -139,8 +139,8 @@ function showAdminGroups() {
                 const stage = users.docs
                     .map((user) => user.data().answers.length)
                     .reduce((acc, cur) => cur < acc ? cur : acc);
-                adminGroupSelectedContent.innerHTML = adminViewGroup(users, stage);
-                createGewinnChartOfUsers(users, stage);
+                adminGroupSelectedContent.innerHTML = adminViewGroup(users, stage, groupId);
+                createGewinnChartOfUsers(users, stage, groupId);
             });
         });
     });

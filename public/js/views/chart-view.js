@@ -1,6 +1,6 @@
-function gewinnChart() {
+function gewinnChart(id = "") {
     return `<div class="row">
-        <div id="gewinnChart" style="width: 100%; height: 400px"></div>
+        <div id="gewinnChart` + id + `" style="width: 100%; height: 400px"></div>
     </div>
     `;
 }
@@ -11,9 +11,9 @@ function createGewinnChart(stage) {
     });
 }
 
-function createGewinnChartOfUsers(users, stage) {
+function createGewinnChartOfUsers(users, stage, id) {
     if (users) {
-        const chart = new JSC.Chart("gewinnChart", {
+        const chart = new JSC.Chart("gewinnChart" + id, {
             defaultSeries: {type: 'line', defaultPoint_marker_visible: false},
             defaultCultureName: LOCALE,
             title_label_text: 'Gewinn Vergleich',

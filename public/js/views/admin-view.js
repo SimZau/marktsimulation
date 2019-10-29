@@ -88,7 +88,7 @@ function adminViewUsers(users, stage) {
     return html;
 }
 
-function adminViewGroup(users, stage) {
+function adminViewGroup(users, stage, id) {
     return `<div class="row">
     <div class="col s1"></div>
     <div class="col s11">
@@ -114,7 +114,7 @@ function adminViewGroup(users, stage) {
                 </tbody>
             </table>
             <div class="col s12">
-                ` + gewinnChart() + `
+                ` + gewinnChart(id) + `
             </div>
         </div>
     </div>
