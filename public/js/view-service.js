@@ -55,14 +55,15 @@ function showSimulationView() {
                 html += simulationActions();
             }
         } else {
-            //html += gewinnChart();
-            //createGewinnChart();
-            html += simulationOverviewMarktanteil();
+            html += simulationOverviewMarktanteilUndChart();
         }
         main.innerHTML = html;
         initActionSelectors();
     } else {
         main.innerHTML = userOverview();
+    }
+    if (store.investitionStage >= 6) {
+        createGewinnChart(store.investitionStage);
     }
 }
 
@@ -135,7 +136,11 @@ function showAdminGroups() {
         store.adminGroupsSelected.forEach((groupId) => {
             fGroups.doc(groupId).collection("users").get().then(function (users) {
                 const adminGroupSelectedContent = document.querySelector("#adminGroup" + groupId + "Content");
-                adminGroupSelectedContent.innerHTML = adminViewGroup(users);
+                const stage = users.docs
+                    .map((user) => user.data().answers.length)
+                    .reduce((acc, cur) => cur < acc ? cur : acc);
+                adminGroupSelectedContent.innerHTML = adminViewGroup(users, stage);
+                createGewinnChartOfUsers(users, stage);
             });
         });
     });

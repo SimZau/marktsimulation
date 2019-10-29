@@ -86,12 +86,11 @@ function simulationOverview() {
 `;
 }
 
-function simulationOverviewMarktanteil() {
+function simulationOverviewMarktanteilUndChart() {
  return `
     <div class="section overview">
         <div class="row">
-            <div class="col s12 l6 xl4"></div>
-            <div class="col s12 l6 xl4">
+            <div class="col s12 xl3">
                 <div class="row overview-element z-depth-1">
                     <div class="col s2">
                         <i class="amber-text text-darken-2 medium material-icons icon-size">pie_chart</i>
@@ -107,6 +106,9 @@ function simulationOverviewMarktanteil() {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col s12 xl9">
+                ` + gewinnChart() + `
             </div>
         </div>
     </div>

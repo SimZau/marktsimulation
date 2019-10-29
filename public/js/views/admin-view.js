@@ -74,11 +74,8 @@ function calculateTotalUmsatz(users, innoCount) {
     });
 }
 
-function adminViewUsers(users) {
+function adminViewUsers(users, stage) {
     let html = "";
-    let stage = users.docs
-        .map((user) => user.data().answers.length)
-        .reduce((acc, cur) => cur < acc ? cur : acc);
     let innoCount = getInnoSelectionsCountPerStage(users, stage);
     let totalUmsatz = calculateTotalUmsatz(users, innoCount);
     users.forEach((user) => {
@@ -91,30 +88,35 @@ function adminViewUsers(users) {
     return html;
 }
 
-function adminViewGroup(users) {
+function adminViewGroup(users, stage) {
     return `<div class="row">
     <div class="col s1"></div>
     <div class="col s11">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Stage 1</th>
-                    <th>Stage 2</th>
-                    <th>Stage 3</th>
-                    <th>Stage 4</th>
-                    <th>Stage 5</th>
-                    <th>Stage 6</th>
-                    <th>Gesamtumsatz</th>
-                    <th>Gesamtgewinn</th>
-                    <th>Marge</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                ` + adminViewUsers(users) + `
-            </tbody>
-        </table>
+        <div class="row">
+            <table class="col s12">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Stage 1</th>
+                        <th>Stage 2</th>
+                        <th>Stage 3</th>
+                        <th>Stage 4</th>
+                        <th>Stage 5</th>
+                        <th>Stage 6</th>
+                        <th>Gesamtumsatz</th>
+                        <th>Gesamtgewinn</th>
+                        <th>Marge</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    ` + adminViewUsers(users, stage) + `
+                </tbody>
+            </table>
+            <div class="col s12">
+                ` + gewinnChart() + `
+            </div>
+        </div>
     </div>
 </div>
 `;

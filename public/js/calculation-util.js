@@ -26,6 +26,7 @@ function Calculation() {
     this.marge = START_MARGE;
     this.produktPreis = START_PRODUKT_PREIS;
     this.marktanteil = 0;
+    this.gesamtGewinn = START_UMSATZ * START_MARGE;
 }
 
 Calculation.prototype.getUmsatz = function () {
@@ -39,13 +40,17 @@ Calculation.prototype.getGesamtUmsatz = function () {
     return umsatz.toLocaleString(LOCALE);
 };
 
+Calculation.prototype.getGewinnAsNumber = function () {
+    return roundBetrag(this.umsatz * this.marge);
+};
+
 Calculation.prototype.getGewinn = function () {
     const gewinn = roundBetrag(this.umsatz * this.marge);
     return gewinn.toLocaleString(LOCALE);
 };
 
 Calculation.prototype.getGesamtGewinn = function () {
-    const gewinn = roundBetrag(this.gesamtUmsatz * this.marge);
+    const gewinn = roundBetrag(this.gesamtGewinn);
     return gewinn.toLocaleString(LOCALE);
 };
 
@@ -67,9 +72,11 @@ Calculation.prototype.getMarge = function () {
 Calculation.prototype.calculate = function (stage, userSelections, innoSelectionsCountPerStage) {
     let umsatz = START_UMSATZ;
     this.gesamtUmsatz = START_UMSATZ;
+    this.gesamtGewinn = START_UMSATZ * START_MARGE;
     for (let i = 0; i < stage; i++) {
         umsatz *= (1 + calculateUmsatzSteigerung(i, userSelections));
         this.gesamtUmsatz += umsatz;
+        this.gesamtGewinn += roundBetrag(umsatz * calculateMargeOfStage(i + 1, innoSelectionsCountPerStage));
     }
     this.umsatz = umsatz;
     console.log("Umsatz: " + this.getUmsatz());

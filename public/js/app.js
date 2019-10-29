@@ -5,7 +5,7 @@ const selectedColor = "#fff3e0";
 const unselectedColor = "#ffffff";
 
 //todo remove
-localStorage.removeItem('username');
+//localStorage.removeItem('username');
 
 init();
 

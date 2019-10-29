@@ -31,11 +31,17 @@ function getStrategienamenForInvestition(investition) {
     return null;
 }
 
-function getUserAnswer() {
-    if (store.investitionStage) {
-        return store.userAnswers[store.investitionStage];
+
+
+function getUserAnswerOfStage(answers, stage) {
+    if (stage) {
+        return answers[stage];
     }
-    return getStrategienamenForInvestition(store.userAnswers[store.investitionStage]);
+    return getStrategienamenForInvestition(answers[stage]);
+}
+
+function getUserAnswer() {
+    getUserAnswerOfStage(store.userAnswers, store.investitionStage)
 }
 
 function getCountFehlendeAntworten() {
