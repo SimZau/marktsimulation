@@ -1,4 +1,5 @@
 "use strict";
+const logoContainer = document.querySelector("#logo-container");
 const navbarUsername = document.querySelector("#navbarUsername");
 const navbarUser = document.querySelector("#navbarUser");
 const footerGroup = document.querySelector("#footerGroup");
@@ -21,6 +22,7 @@ function setUserDataOnView() {
     navbarUser.style.display = "block";
     footerGroup.style.display = "block";
     footerGroupname.innerHTML = store.userclass + ", Gruppe " + store.usergroup;
+    logoContainer.style.display = "none";
 }
 
 function showGroupmembercount() {

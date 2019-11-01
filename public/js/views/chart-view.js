@@ -11,12 +11,16 @@ function createGewinnChart(stage) {
     });
 }
 
-function createGewinnChartOfUsers(users, stage, id) {
+function createGewinnChartOfUsers(users, stage, id = "") {
     if (users) {
         const chart = new JSC.Chart("gewinnChart" + id, {
             defaultSeries: {type: 'line', defaultPoint_marker_visible: false},
             defaultCultureName: LOCALE,
             title_label_text: 'Gewinn Vergleich',
+            legend: {
+                position: 'bottom',
+                template: '%icon,%name'
+            },
             xAxis_label_text: 'Jahre',
             yAxis: {
                 alternateGridFill: 'none',
@@ -48,7 +52,7 @@ function createGewinnChartLine(user, innoCount, stage) {
             attributes: {
                 invest: (i < 6 ? getUserAnswerOfStage(user.data().answers, i): "")
             },
-            tooltip: "<b>%yAxisLabel:</b> %yValue<br><b>Investition:</b> %invest"
+            tooltip: "<b>%yAxisLabel:</b> %yValue<br><b>Investition:</b> %invest",
         });
     }
     return {name: user.data().name, points: points};

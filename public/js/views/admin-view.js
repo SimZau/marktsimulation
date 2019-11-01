@@ -145,7 +145,7 @@ function adminViewGroups(groups) {
 function klassenOptions(classes) {
     let html = "";
     for (let clazz of classes) {
-        html += `<option value="` + clazz + `" onclick="selectClass('` + clazz + `')" ` + (store.adminClassSelected === clazz ? "selected" : "") + `>` + clazz + `</option>\n`;
+        html += `<option value="` + clazz + `" ` + (store.adminClassSelected === clazz ? "selected" : "") + `>` + clazz + `</option>\n`;
     }
     if (store.adminClassSelected) {
         showAdminGroups(store.adminClassSelected);
@@ -154,14 +154,21 @@ function klassenOptions(classes) {
 }
 
 function adminViewClasses(classes) {
-    return `<div class="row">
-    <div class="input-field col s12">
-        <select>
+    return `<form id="adminSelectClass" class="section" action="javascript:void(0);" onsubmit="selectClass(this.classSelect.value)">
+<div class="row">
+    <div class="col s12 m10">
+        <select id="classSelect" name="classSelect" required onchange="selectClass(this.options[this.selectedIndex].text);">
             <option value="" disabled ` + (!store.adminClassSelected ? "selected" : "") + `>Wähle eine Klasse</option>
             ` + klassenOptions(classes) + `
         </select>
     </div>
+    <div class="col s12 m2">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">select</i>
+        </button>
+    </div>
 </div>
+</form>
 <div id="adminGroups">
 </div>`;
 }
